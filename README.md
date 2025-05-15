@@ -44,3 +44,19 @@ graph TD
     E --> F[FastAPI Service]
     E --> G[Great Expectations Validation]
     F --> H[Consumers: Trading Analysts]
+```
+
+commodity-data-platform/
+├── dags/                      # Airflow DAGs
+├── src/
+│   ├── ingestion/             # Data ingestion (API + Web scraping)
+│   ├── transformation/        # Spark-based transformation
+│   ├── validation/            # Great Expectations checks
+│   └── api/                   # FastAPI endpoints
+├── tests/                     # Unit tests
+├── notebooks/                 # EDA and testing
+├── .github/workflows/         # CI/CD pipeline
+├── docker-compose.yml         # Local dev environment
+├── Dockerfile                 # For API or batch jobs
+├── requirements.txt
+└── README.md
