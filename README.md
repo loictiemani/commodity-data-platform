@@ -46,6 +46,8 @@ graph TD
     E --> F[FastAPI Service]
     E --> G[Great Expectations Validation]
     F --> H[Consumers: Trading Analysts]
+
+
 ```
 
 ---
