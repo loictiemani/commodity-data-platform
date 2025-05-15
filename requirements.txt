@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pyspark
+great_expectations
+apache-airflow
+requests
+beautifulsoup4
+pandas
