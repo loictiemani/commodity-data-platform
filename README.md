@@ -56,19 +56,36 @@ graph TD
 
 ```
 commodity-data-platform/
-├── dags/                      # Airflow DAGs
-├── src/
-│   ├── ingestion/             # Data ingestion (API + Web scraping)
-│   ├── transformation/        # Spark-based transformation
-│   ├── validation/            # Great Expectations checks
-│   └── api/                   # FastAPI endpoints
-├── tests/                     # Unit tests
-├── notebooks/                 # EDA and testing
-├── .github/workflows/         # CI/CD pipeline
-├── docker-compose.yml         # Local dev environment
-├── Dockerfile                 # For API or batch jobs
-├── requirements.txt
-└── README.md
+│
+├── dags/                          # Airflow DAGs
+│   └── commodity_pipeline.py
+│
+├── src/                           # Python modules for data ingestion & processing
+│   ├── ingestion/
+│   │   └── eia_api_ingest.py
+│   │   └── web_scraper.py
+│   ├── transformation/
+│   │   └── spark_transforms.py
+│   ├── validation/
+│   │   └── data_quality.py
+│   └── api/
+│       └── app.py                 # FastAPI to expose data
+│
+├── tests/                         # Unit tests
+│   └── test_ingestion.py
+│
+├── notebooks/                     # Exploratory data analysis
+│   └── analysis.ipynb
+│
+├── docker-compose.yml             # Simulate environment (Airflow, Spark, etc.)
+├── Dockerfile                     # Image for the ETL app or API
+├── requirements.txt               # Python dependencies
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml              # GitHub Actions CI/CD
+├── README.md
+└── architecture.png               # Diagram of data flow
+
 ```
 
 ---
