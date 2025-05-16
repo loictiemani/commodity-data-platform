@@ -8,10 +8,16 @@ WORKDIR /app
 COPY ./src /app
 
 # Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose API port
+COPY requirements.txt ./
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install python-dotenv
+
+
+COPY . .
+
+    # Expose API port
 EXPOSE 8000
 
 # Run FastAPI app
