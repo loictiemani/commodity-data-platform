@@ -1,0 +1,11 @@
+FROM bitnami/spark:latest
+
+USER root
+
+ENV POSTGRES_JDBC_VERSION=42.6.0
+
+RUN mkdir -p /opt/bitnami/spark/jars && \
+    apt-get update && apt-get install -y curl && \
+    curl -L -o /opt/bitnami/spark/jars/postgresql-${POSTGRES_JDBC_VERSION}.jar \
+    https://jdbc.postgresql.org/download/postgresql-${POSTGRES_JDBC_VERSION}.jar && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
