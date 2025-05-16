@@ -4,6 +4,7 @@ from datetime import datetime
 from src.ingestion.eia_api_ingest import fetch_eia_data
 from src.transformation.spark_transforms import transform_data
 
+
 default_args = {
     'owner': 'airflow',
     'start_date': datetime(2024, 1, 1),
