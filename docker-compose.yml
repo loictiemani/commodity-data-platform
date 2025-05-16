@@ -20,7 +20,9 @@ services:
     ports:
       - "${HOST_PORT}:5432" 
   airflow-init:
-    image: apache/airflow:2.7.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     depends_on:
       - postgres
     environment:
@@ -28,6 +30,10 @@ services:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
+      AIRFLOW__LOGGING__REMOTE_LOGGING: ${AIRFLOW__LOGGING__REMOTE_LOGGING}
+      PYTHONPATH: /opt/airflow
+      EIA_API_KEY: ${EIA_API_KEY}
     volumes:
       - ./dags:/opt/airflow/dags
       - ./src:/opt/airflow/src
@@ -38,7 +44,9 @@ services:
       "
 
   airflow-webserver:
-    image: apache/airflow:2.7.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     depends_on:
       - postgres
       - airflow-init
@@ -47,6 +55,10 @@ services:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
+      AIRFLOW__LOGGING__REMOTE_LOGGING: ${AIRFLOW__LOGGING__REMOTE_LOGGING}
+      PYTHONPATH: /opt/airflow
+      EIA_API_KEY: ${EIA_API_KEY}
     ports:
       - "8080:8080"
     volumes:
@@ -55,7 +67,9 @@ services:
     command: airflow webserver
 
   airflow-scheduler:
-    image: apache/airflow:2.7.0
+    build:
+      context: .
+      dockerfile: Dockerfile-airflow
     depends_on:
       - airflow-webserver
     environment:
@@ -63,6 +77,10 @@ services:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
+      AIRFLOW__LOGGING__REMOTE_LOGGING: ${AIRFLOW__LOGGING__REMOTE_LOGGING}
+      PYTHONPATH: /opt/airflow
+      EIA_API_KEY: ${EIA_API_KEY}
     volumes:
       - ./dags:/opt/airflow/dags
       - ./src:/opt/airflow/src
