@@ -3,6 +3,7 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime
 from src.ingestion.eia_api_ingest import fetch_eia_data
 from src.transformation.spark_transforms import transform_data
+from src.ingestion.web_scraper import scrape_oil_news
 
 
 default_args = {
@@ -27,6 +28,10 @@ with DAG(
     transform_task = PythonOperator(
         task_id='transform_data_spark',
         python_callable=transform_data
+    )
+    ingest_task = PythonOperator(
+        task_id='ingest_web_srape',
+        python_callable=scrape_oil_news
     )
 
     ingest_task >> transform_task
