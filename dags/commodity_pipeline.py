@@ -29,9 +29,9 @@ with DAG(
         task_id='transform_data_spark',
         python_callable=transform_data
     )
-    ingest_task = PythonOperator(
+    ingest_task_web = PythonOperator(
         task_id='ingest_web_srape',
         python_callable=scrape_oil_news
     )
 
-    ingest_task >> transform_task
+    [ingest_task,ingest_task_web] >> transform_task
