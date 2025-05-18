@@ -13,7 +13,7 @@ def scrape_oil_news():
         return
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    headlines = soup.find_all('h4')
+    headlines = soup.find_all('h3')
     news = [h.text.strip() for h in headlines if h.text.strip()]
     
     if not news:
